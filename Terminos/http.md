@@ -110,6 +110,7 @@ sequenceDiagram
 
 ## 10. Términos relacionados
 
+- [Evolución del protocolo HTTP](versiones-http.md) — qué cambió entre HTTP/0.9, 1.0, 1.1, 2 y 3.
 - [Glosario](../Glosario.md) — índice general.
 
 *(Pendiente de crear fichas propias para: API, JSON, HTML, HTTPS, cookie,

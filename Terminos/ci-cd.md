@@ -1,6 +1,5 @@
 ---
 termino: CI/CD
-asignatura: Sin asignar
 fecha_creacion: 2026-10-01
 fecha_actualizacion: 2026-10-01
 estado: pendiente-de-revision

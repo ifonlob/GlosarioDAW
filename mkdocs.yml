@@ -52,7 +52,9 @@ plugins:
         theme: |
           ^(JSON.parse(window.localStorage.getItem('mkdocs-material:theme')) === 'dark' ? 'dark' : 'neutral')
   - minify:
-      minify_html: true
+      minify_html: false   # minify_html rompe Mermaid (quita los saltos de línea)
+      minify_css: true
+      minify_js: true
   - tags
 
 markdown_extensions:
@@ -97,5 +99,4 @@ nav:
   - Términos: terminos.md
   - Categorías: categorias.md
   - Etiquetas: etiquetas.md
-  - Mapa conceptual: mapa-conceptual.md
   - Sobre el glosario: sobre.md

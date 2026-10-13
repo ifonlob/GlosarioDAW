@@ -58,7 +58,7 @@ posibles serían Pandoc (conversión de formatos) o Docusaurus (otro generador).
 flowchart TD
     A[Escribir o ampliar la ficha en Markdown] --> B[Actualizar Glosario.md]
     B --> C[prepare_docs.py: copia a docs/ y ajusta enlaces]
-    C --> D[generate_indexes.py: índices, categorías y mapa]
+    C --> D[generate_indexes.py: índices, categorías y etiquetas]
     D --> E[validate_docs.py: revisa frontmatter y enlaces]
     E -->|Errores| A
     E -->|OK| F[mkdocs build --strict]

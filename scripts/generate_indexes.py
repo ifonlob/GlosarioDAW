@@ -7,7 +7,6 @@ Genera índices automáticos para MkDocs:
 - docs/terminos.md (página de términos)
 - docs/categorias.md (agrupado por etiquetas/categorías)
 - docs/etiquetas.md (tags)
-- docs/mapa-conceptual.md (mapa conceptual automático desde enlaces)
 - docs/sobre.md (sobre el proyecto)
 """
 
@@ -89,7 +88,6 @@ Un glosario pedagógico creado para aprender paso a paso. Cada ficha explica un 
 - [Ver glosario completo](glosario.md)
 - [Explorar por categorías](categorias.md)
 - [Explorar por etiquetas](etiquetas.md)
-- [Mapa conceptual](mapa-conceptual.md)
 """
     (DOCS / "index.md").write_text(content, encoding="utf-8")
 
@@ -145,56 +143,6 @@ def write_etiquetas_md(items):
         lines.append(f"- `{t}`")
     (DOCS / "etiquetas.md").write_text('\n'.join(lines), encoding="utf-8")
 
-def build_relations(items):
-    # map slug -> {name, file}
-    slugmap = {i['slug']: i for i in items}
-    rels_out = defaultdict(list)  # from -> to
-    for i in items:
-        fpath = TERM_DIR / i['file']
-        try:
-            text = fpath.read_text(encoding='utf-8')
-        except:
-            continue
-        # Enlaces a otras fichas: dentro de docs/terminos son relativos y sin
-        # carpeta, por ejemplo [HTTP](http.md) o [HTTP](http.md#seccion).
-        for m in re.finditer(r'\]\((?:\.\./)?(?:terminos/)?([\w\-]+)\.md(?:#[^)]*)?\)', text):
-            lslug = m.group(1)
-            if lslug in slugmap and lslug != i['slug']:
-                rels_out[i['slug']].append(lslug)
-    return rels_out, slugmap
-
-def write_mapa_conceptual(items):
-    rels_out, slugmap = build_relations(items)
-    lines = ["# Mapa conceptual", "", "Representación automática de relaciones explícitas entre fichas.", "", "```mermaid", "graph LR"]
-    # nodos (evitar duplicados)
-    nodes = set(slugmap.keys())
-    for a in rels_out:
-        nodes.add(a)
-        for b in rels_out[a]:
-            nodes.add(b)
-    # escribir nodos con labels
-    for n in sorted(nodes):
-        label = slugmap[n]['term'].replace('"', "'") if n in slugmap else n
-        # limpiar comillas
-        label = label.replace('"', "'")
-        # acortar si muy largo
-        if len(label) > 30:
-            label = label[:27] + '...'
-        lines.append(f'  {n}["{label}"]')
-    # relaciones (sin duplicados)
-    seen = set()
-    for a in rels_out:
-        for b in rels_out[a]:
-            key = tuple(sorted((a,b)))
-            if key in seen:
-                continue
-            seen.add(key)
-            lines.append(f'  {a} --> {b}')
-    lines.append("```")
-    lines.append("")
-    lines.append("> *Nota*: Solo se muestran relaciones explícitas detectadas en los enlaces Markdown entre fichas.")
-    (DOCS / "mapa-conceptual.md").write_text('\n'.join(lines), encoding="utf-8")
-
 def write_sobre(items):
     total = len(items)
     content = f"""# Sobre el glosario
@@ -237,7 +185,6 @@ def main():
     write_terminos_md(items)
     write_categorias_md(items)
     write_etiquetas_md(items)
-    write_mapa_conceptual(items)
     write_sobre(items)
     print(f"Índices generados: {len(items)} términos procesados.")
 

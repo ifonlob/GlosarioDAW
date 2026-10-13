@@ -64,7 +64,7 @@ Cada ficha en `Terminos/` sigue `Plantillas/termino.md` y lleva frontmatter YAML
 termino: Nombre del término
 fecha_creacion: AAAA-MM-DD
 fecha_actualizacion: AAAA-MM-DD
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [tag1, tag2]
 ---
 ```
@@ -86,9 +86,8 @@ Secciones obligatorias, en este orden:
 
 ## 5. Estado de las fichas
 
-- `estado: pendiente-de-revision` es el valor por defecto al crear o ampliar una ficha.
-- **Nunca** marcar una ficha como revisada por la estudiante por iniciativa propia.
-  Solo se cambia si la estudiante lo pide expresamente.
+- `estado: revisado` es el valor por defecto al crear o ampliar una ficha.
+- Las fichas no pasan por un flujo de revisión: se consideran listas al crearse.
 - Al ampliar una ficha se actualiza `fecha_actualizacion` con la fecha real del entorno.
 
 ## 6. No duplicar términos

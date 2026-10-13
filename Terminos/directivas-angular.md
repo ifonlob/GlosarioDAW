@@ -2,7 +2,7 @@
 termino: Directivas de Angular (resumen)
 fecha_creacion: 2026-10-05
 fecha_actualizacion: 2026-10-05
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [angular, typescript, plantillas, frontend, control-flow]
 ---
 

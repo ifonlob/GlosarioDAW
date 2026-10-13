@@ -33,8 +33,7 @@ $ARGUMENTS
    - tres preguntas de repaso con sus respuestas al final,
    - enlaces a términos relacionados en Markdown relativo.
 7. **Actualiza `Glosario.md`**: añade el enlace en la lista alfabética de fichas.
-8. **Estado**: deja siempre `estado: pendiente-de-revision`. Nunca lo marques como
-   revisado por iniciativa propia.
+8. **Estado**: usa siempre `estado: revisado`; las fichas no pasan por revisión.
 9. **No toques la sección «Mis notas»** de ninguna ficha.
 10. Comprueba que los enlaces relativos que has añadido apuntan a archivos existentes.
 

@@ -2,7 +2,7 @@
 termino: Merge vs Rebase
 fecha_creacion: 2026-10-13
 fecha_actualizacion: 2026-10-13
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [git, ramas, repositorio, historia, comparativa]
 ---
 

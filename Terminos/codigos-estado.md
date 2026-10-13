@@ -2,7 +2,7 @@
 termino: Códigos de estado HTTP
 fecha_creacion: 2026-10-08
 fecha_actualizacion: 2026-10-08
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [http, api, errores, servidor, php]
 ---
 
@@ -191,8 +191,8 @@ flowchart TD
   los códigos de estado.
 - [Glosario](../Glosario.md) — índice general.
 
-**Nota:** esta ficha está **pendiente de que la revises**. Si lo que querías eran
-los **métodos** (GET, POST, PUT…), dímelo y creo esa ficha aparte.
+**Nota:** si lo que querías eran los **métodos** (GET, POST, PUT…), dímelo y
+creo esa ficha aparte.
 
 *(Pendiente de crear fichas propias para: API, REST, métodos HTTP, HTTPS,
 cabeceras.)*

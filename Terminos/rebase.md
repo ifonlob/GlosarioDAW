@@ -2,7 +2,7 @@
 termino: Rebase
 fecha_creacion: 2026-10-06
 fecha_actualizacion: 2026-10-06
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [git, ramas, repositorio, historia]
 ---
 

@@ -2,7 +2,7 @@
 termino: Evolución del protocolo HTTP
 fecha_creacion: 2026-10-08
 fecha_actualizacion: 2026-10-08
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [http, redes, protocolo, rendimiento, web]
 ---
 

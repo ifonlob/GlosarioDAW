@@ -2,7 +2,7 @@
 termino: Nombre del término
 fecha_creacion: AAAA-MM-DD
 fecha_actualizacion: AAAA-MM-DD
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [tag1, tag2]
 ---
 

@@ -2,7 +2,7 @@
 termino: Angular standalone vs Ng Module
 fecha_creacion: 2026-10-05
 fecha_actualizacion: 2026-10-05
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [angular, typescript, frontend, componentes]
 ---
 

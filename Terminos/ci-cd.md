@@ -2,7 +2,7 @@
 termino: CI/CD
 fecha_creacion: 2026-10-01
 fecha_actualizacion: 2026-10-01
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [devops, git, pruebas, despliegue, automatizacion]
 ---
 

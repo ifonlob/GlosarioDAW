@@ -2,7 +2,7 @@
 termino: @Input y @Output con EventEmitter en Angular
 fecha_creacion: 2026-10-05
 fecha_actualizacion: 2026-10-05
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [angular, typescript, componentes, comunicacion, frontend]
 ---
 

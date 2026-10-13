@@ -2,7 +2,7 @@
 termino: HTTP
 fecha_creacion: 2026-10-01
 fecha_actualizacion: 2026-10-01
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [ejemplo, redes, web, protocolo]
 ---
 

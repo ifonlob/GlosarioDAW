@@ -2,7 +2,7 @@
 termino: DTO (Data Transfer Object)
 fecha_creacion: 2026-10-13
 fecha_actualizacion: 2026-10-13
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [dto, json, http, spring, java, arquitectura]
 ---
 

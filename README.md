@@ -48,7 +48,7 @@ Qué hace:
 3. Crea `Terminos/<termino>.md` con las 12 secciones de la plantilla y
    **al menos un diagrama Mermaid**.
 4. Añade el enlace a `Glosario.md` en la lista alfabética.
-5. Deja la ficha en `estado: pendiente-de-revision` (solo tú la marcas como revisada).
+5. Deja la ficha con `estado: revisado` (no hay flujo de revisión pendiente).
 6. En el chat te lo explica por capas: qué es → cómo funciona → diagrama →
    ejemplo mínimo → confusiones típicas → una pregunta de repaso **sin respuesta**.
 
@@ -99,8 +99,6 @@ Los enlaces son Markdown estándar (`[HTTP](Terminos/http.md)`), no enlaces
 
 ## Qué partes requieren tu intervención
 
-- **Revisar las fichas**: quedan siempre en `pendiente-de-revision`. Solo tú decides
-  cuándo una está revisada.
 - **La sección «Mis notas»** de cada ficha es tuya. No se borra ni se sobrescribe.
 - **Contestar el repaso**: el comando pregunta, tú respondes.
 - **El contexto de clase y tu duda** son tuyos: si no los escribes, la ficha se hace

@@ -60,9 +60,9 @@ def build_index():
 def write_index_page(items):
     DOCS.mkdir(exist_ok=True)
     total = len(items)
-    # contar estados
-    pend = sum(1 for i in items if 'pendiente' in i['estado'])
-    rev = total - pend
+    etiquetas = set()
+    for i in items:
+        etiquetas.update(i['tags'])
     # fecha
     hoy = datetime.now().strftime('%Y-%m-%d')
     content = f"""# Glosario DAW
@@ -72,8 +72,7 @@ def write_index_page(items):
 ## Estadísticas reales
 
 - **Términos totales:** {total}
-- **Pendientes de revisión:** {pend}
-- **Revisados o en otro estado:** {rev}
+- **Etiquetas distintas:** {len(etiquetas)}
 - **Actualización del índice:** {hoy}
 
 ## ¿Qué es esto?
@@ -107,8 +106,7 @@ def write_glosario_md(items):
     for letter in sorted(by_letter.keys()):
         lines.append(f"## {letter}")
         for i in by_letter[letter]:
-            desc = f" — {i['estado']}" if i['estado'] else ""
-            lines.append(f"- [{i['term']}](terminos/{i['file']}){desc}")
+            lines.append(f"- [{i['term']}](terminos/{i['file']})")
         lines.append("")
     (DOCS / "glosario.md").write_text('\n'.join(lines), encoding="utf-8")
 

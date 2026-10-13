@@ -2,7 +2,7 @@
 termino: Bean (Spring Boot)
 fecha_creacion: 2026-10-13
 fecha_actualizacion: 2026-10-13
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [spring, spring-boot, java, ioc, inyeccion-dependencias]
 ---
 

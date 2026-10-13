@@ -2,7 +2,7 @@
 termino: Backlog
 fecha_creacion: 2026-10-02
 fecha_actualizacion: 2026-10-02
-estado: pendiente-de-revision
+estado: revisado
 etiquetas: [scrum, gestion-de-proyectos, produto]
 ---
 

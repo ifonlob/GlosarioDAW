@@ -35,5 +35,4 @@ $ARGUMENTS
 ## Límites
 
 - **No modifiques ninguna ficha** salvo que la estudiante lo pida expresamente.
-- No cambies `estado` a revisado por tu cuenta.
 - Conserva siempre la sección «Mis notas».

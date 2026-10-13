@@ -8,7 +8,6 @@ Genera índices automáticos para MkDocs:
 - docs/categorias.md (agrupado por etiquetas/categorías)
 - docs/etiquetas.md (tags)
 - docs/mapa-conceptual.md (mapa conceptual automático desde enlaces)
-- docs/autoevaluacion.md (auto-evaluación básica)
 - docs/sobre.md (sobre el proyecto)
 """
 
@@ -82,7 +81,7 @@ Un glosario pedagógico creado para aprender paso a paso. Cada ficha explica un 
 - Explicación por capas (qué es → cómo funciona → diagrama → ejemplo mínimo)
 - Al menos un diagrama Mermaid
 - Ejemplos prácticos relacionados con DAW
-- Preguntas de autoevaluación
+- Preguntas de repaso
 - Enlaces a conceptos relacionados
 
 ## Acceso rápido
@@ -91,7 +90,6 @@ Un glosario pedagógico creado para aprender paso a paso. Cada ficha explica un 
 - [Explorar por categorías](categorias.md)
 - [Explorar por etiquetas](etiquetas.md)
 - [Mapa conceptual](mapa-conceptual.md)
-- [Practicar con autoevaluación](autoevaluacion.md)
 """
     (DOCS / "index.md").write_text(content, encoding="utf-8")
 
@@ -157,10 +155,10 @@ def build_relations(items):
             text = fpath.read_text(encoding='utf-8')
         except:
             continue
-        # links
-        for m in re.finditer(r'\]\(terminos/([^)#]+)\)', text):
-            lname = m.group(1)
-            lslug = Path(lname).stem
+        # Enlaces a otras fichas: dentro de docs/terminos son relativos y sin
+        # carpeta, por ejemplo [HTTP](http.md) o [HTTP](http.md#seccion).
+        for m in re.finditer(r'\]\((?:\.\./)?(?:terminos/)?([\w\-]+)\.md(?:#[^)]*)?\)', text):
+            lslug = m.group(1)
             if lslug in slugmap and lslug != i['slug']:
                 rels_out[i['slug']].append(lslug)
     return rels_out, slugmap
@@ -194,21 +192,8 @@ def write_mapa_conceptual(items):
             lines.append(f'  {a} --> {b}')
     lines.append("```")
     lines.append("")
-    lines.append("> *Nota*: Solo se muestran relaciones explícitas detectadas en enlaces Markdown (`terminos/xxx.md`).")
+    lines.append("> *Nota*: Solo se muestran relaciones explícitas detectadas en los enlaces Markdown entre fichas.")
     (DOCS / "mapa-conceptual.md").write_text('\n'.join(lines), encoding="utf-8")
-
-def write_autoevaluacion(items):
-    lines = ["# Autoevaluación", "", "Preguntas aleatorias basadas en las fichas. Responde antes de consultar la ficha.", "", "## ¿Cómo usarlo?", 
-             "- Lee la pregunta y responde en tu mente.", 
-             "- Consulta la ficha correspondiente para comprobar tu respuesta.", 
-             "", "## Preguntas de ejemplo", ""]
-    # coger hasta 5
-    sample = sorted(items, key=lambda x: x['term'].lower())[:5]
-    for i, it in enumerate(sample, 1):
-        lines.append(f"{i}. **Sobre [{it['term']}](terminos/{it['file']}):** ¿Qué es y cuándo se utiliza?")
-        lines.append("")
-    lines.append("> *Las preguntas completas se generan desde el campo 'Tres preguntas de repaso' de cada ficha al usar el flujo de estudio.*")
-    (DOCS / "autoevaluacion.md").write_text('\n'.join(lines), encoding="utf-8")
 
 def write_sobre(items):
     total = len(items)
@@ -253,7 +238,6 @@ def main():
     write_categorias_md(items)
     write_etiquetas_md(items)
     write_mapa_conceptual(items)
-    write_autoevaluacion(items)
     write_sobre(items)
     print(f"Índices generados: {len(items)} términos procesados.")
 

@@ -11,7 +11,7 @@ etiquetas: [redes, seguridad, http, spring, api, inspeccion]
 > La palabra *sniffing* («olfatear») se usa en DAW con **dos significados
 > distintos**. Esta ficha explica los dos, cada uno en su contexto:
 > [A. Sniffing de paquetes](#a-sniffing-de-paquetes-de-red) y
-> [B. API sniffing](#b-api-sniffing-generar-la-documentación-de-una-api).
+> [B. API sniffing](#b-api-sniffing-generar-la-documentacion-de-una-api).
 
 ## 1. Definición breve
 

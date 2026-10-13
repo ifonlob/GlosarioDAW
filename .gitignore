@@ -1,0 +1,7 @@
+# Salidas generadas por el sitio de documentación (no se versionan)
+/docs/
+/site/
+
+# Restos de Python
+__pycache__/
+*.pyc

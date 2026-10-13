@@ -1,0 +1,9 @@
+mkdocs-material
+mkdocs-minify-plugin
+mkdocs-include-markdown-plugin
+pymdown-extensions
+lxml
+pyyaml
+beautifulsoup4
+requests
+mkdocs-mermaid2-plugin

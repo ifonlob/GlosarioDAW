@@ -1,0 +1,102 @@
+site_name: Glosario DAW
+site_description: Glosario personal de Desarrollo de Aplicaciones Web (DAW), nivel principiante.
+site_author: Glosario DAW
+repo_url: https://github.com/ifonlob/GlosarioDAW
+repo_name: ifonlob/GlosarioDAW
+edit_uri: edit/main/
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: es
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Cambiar a modo claro
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Volver al modo automático
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tooltips
+    - header.autohide
+
+plugins:
+  - search:
+      lang: es
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(window.localStorage.getItem('mkdocs-material:theme')) === 'dark' ? 'dark' : 'neutral')
+  - minify:
+      minify_html: true
+  - tags
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+      title: Índice
+  - pymdownx.details
+  - pymdownx.highlight:
+      linenums: true
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ifonlob/GlosarioDAW
+  generator: false
+
+nav:
+  - Inicio: index.md
+  - Glosario: glosario.md
+  - Términos: terminos.md
+  - Categorías: categorias.md
+  - Etiquetas: etiquetas.md
+  - Mapa conceptual: mapa-conceptual.md
+  - Autoevaluación: autoevaluacion.md
+  - Sobre el glosario: sobre.md

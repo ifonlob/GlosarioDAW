@@ -7,18 +7,19 @@ herramientas para generarlo y publicarlo como sitio web.
 - **Fuente:** archivos de texto plano (Markdown), legibles en Obsidian, en GitHub
   o con cualquier editor.
 - **Sitio publicado:** generado con MkDocs y publicado con GitHub Actions.
-- **Idea clave:** elegir la herramienta por el contenido que hay que mantener y
-  por quién lo va a consultar.
+- **Criterio de diseño:** elegir cada herramienta por el contenido que hay que
+  mantener y por quién lo va a consultar.
 
 ## 1. Qué documenta y para quién
 
-La documentación explica **qué hace** el proyecto, **cómo está hecho** y **cómo
-se usa o se mantiene**. En este glosario conviven tres audiencias:
+Una documentación útil explica **qué hace** el proyecto, **cómo está hecho** y
+**cómo se usa o se mantiene**, adaptándose a quien la consulta. En este glosario
+conviven tres audiencias:
 
 | Audiencia | Qué necesita | Dónde lo encuentra |
 |---|---|---|
 | Estudia o consulta los términos | Entender un concepto y repasarlo | Sitio web, fichas de `Terminos/`, `Glosario.md` |
-| Añade términos nuevos | Crear una ficha correcta sin duplicar | Comandos `/glosario` y `/repaso`, `Plantillas/termino.md` |
+| Añade términos nuevos | Crear una ficha correcta sin duplicar | Comandos `/glosario` y `/repasar`, `Plantillas/termino.md` |
 | Mantiene el proyecto | Regenerar y publicar el sitio | `scripts/`, `mkdocs.yml`, `.github/workflows/` |
 
 ## 2. Tipos de documentación en el proyecto
@@ -29,8 +30,9 @@ se usa o se mantiene**. En este glosario conviven tres audiencias:
 | Interna (junto a los datos) | *frontmatter* YAML de cada ficha y comentarios de los scripts | Aportar metadatos y permitir que los scripts generen índices |
 | Generada | `docs/` y `site/` (creadas por los scripts y por MkDocs) | Publicar el sitio sin editar los originales |
 
-Este proyecto es un **manual**, no una API de código: por eso **no** usa KDoc,
-Javadoc ni Doxygen. Usa los generadores adecuados para documentación escrita.
+Este proyecto documenta contenidos escritos, no una API de código: por eso usa un
+generador de sitios (MkDocs) y no herramientas de extracción de código como
+KDoc, Javadoc o Doxygen.
 
 ## 3. Formatos y herramientas
 
@@ -46,9 +48,9 @@ Javadoc ni Doxygen. Usa los generadores adecuados para documentación escrita.
 | **GitHub Pages** | Alojamiento web | Publica el sitio generado |
 | **Obsidian** | Visor de notas Markdown | Lectura local y edición de las fichas |
 
-No se confunde el **formato** con el **generador**: Markdown es la forma de
-escribir; MkDocs transforma esos archivos en un sitio. `Pandoc` (convertir a PDF
-o DOCX) o `Docusaurus` son alternativas, pero no se usan aquí.
+Conviene no confundir el **formato** con el **generador**: Markdown es la forma de
+escribir; MkDocs transforma esos archivos en un sitio. Otras alternativas
+posibles serían Pandoc (conversión de formatos) o Docusaurus (otro generador).
 
 ## 4. Flujo de la documentación
 
@@ -65,8 +67,8 @@ flowchart TD
     H --> I[Publicar en GitHub Pages]
 ```
 
-Los diagramas de las fichas se escriben en Mermaid para que se puedan revisar y
-versionar junto al texto, en lugar de depender de una imagen.
+Los diagramas se escriben en Mermaid para poder revisarlos y versionarlos junto al
+texto, en lugar de depender de una imagen que cuesta actualizar.
 
 ## 5. Estructura del repositorio
 
@@ -154,16 +156,18 @@ Source: GitHub Actions**. La URL esperada es
 
 ## 9. Buenas prácticas aplicadas
 
-- **Audiencia concreta:** lenguaje de principiante, un concepto por ficha.
-- **Junto al proyecto:** las fichas se versionan con Git y se revisan en cada cambio.
-- **Ejemplos verificables:** `validate_docs.py` y `mkdocs build --strict` comprueban
-  frontmatter, enlaces y construcción.
-- **Estructura y búsqueda:** navegación en `mkdocs.yml`, buscador del tema y un
-  índice alfabético generado.
+- **Escribir para una audiencia concreta:** lenguaje de principiante y un concepto
+  por ficha.
+- **Mantener la documentación junto al proyecto:** las fichas se versionan con Git
+  y se revisan en cada cambio.
+- **Usar ejemplos verificables:** `validate_docs.py` y `mkdocs build --strict`
+  comprueban frontmatter, enlaces y construcción.
+- **Estructurar y facilitar la búsqueda:** navegación en `mkdocs.yml`, buscador del
+  tema e índice alfabético generado.
 - **Proteger la información:** `.gitignore` excluye lo generado y no se guardan
   credenciales ni datos personales.
-- **Automatizar:** GitHub Actions evita publicar a mano, aunque no sustituye la
-  revisión del contenido.
+- **Automatizar lo que aporta valor:** GitHub Actions evita publicar a mano, aunque
+  no sustituye la revisión del contenido.
 
 ## 10. Estado de las fichas
 
@@ -171,16 +175,7 @@ Todas las fichas usan `estado: revisado`. No hay un flujo de revisión pendiente
 una ficha se considera lista al crearse. Lo único reservado a la autora es la
 sección **«Mis notas»**, que nunca se borra ni se sobrescribe.
 
-## 11. Relación con el RA 6 y sus criterios
-
-| Criterio | Cómo se cubre |
-|---|---|
-| **CE 6.a** Herramientas de generación de documentación | Markdown + MkDocs Material como generador; Mermaid para diagramas; alternativas citadas (Pandoc, Docusaurus) |
-| **CE 6.b** Documentar con generadores específicos | `generate_indexes.py` crea índice, categorías y mapa conceptual; MkDocs genera el sitio |
-| **CE 6.c** Diferentes formatos | Markdown (fuente), YAML (metadatos), Mermaid (diagramas) y HTML (sitio) |
-| **CE 6.d** Herramientas colaborativas | Git y GitHub (historial, *pull requests*) con integración continua en GitHub Actions |
-
-## 12. Comprobaciones y límites
+## 11. Comprobaciones y límites
 
 - El flujo `prepare → generate → validate → mkdocs build --strict` se ha ejecutado
   en local y termina **sin avisos** con 19 términos.

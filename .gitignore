@@ -5,3 +5,7 @@
 # Restos de Python
 __pycache__/
 *.pyc
+
+# Entorno virtual local
+.venv/
+venv/

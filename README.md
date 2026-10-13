@@ -1,116 +1,200 @@
 # Glosario personal de DAW
 
-Glosario de **Desarrollo de Aplicaciones Web** hecho con archivos Markdown y dos
-comandos de OpenCode. Todo es texto plano: puedes abrirlo con Obsidian, con un
-editor cualquiera o desde una terminal.
+Documentación de un **glosario de Desarrollo de Aplicaciones Web** para nivel
+principiante. El contenido son fichas en Markdown y el repositorio incluye las
+herramientas para generarlo y publicarlo como sitio web.
 
-## Lo único que necesitas recordar
+- **Fuente:** archivos de texto plano (Markdown), legibles en Obsidian, en GitHub
+  o con cualquier editor.
+- **Sitio publicado:** generado con MkDocs y publicado con GitHub Actions.
+- **Idea clave:** elegir la herramienta por el contenido que hay que mantener y
+  por quién lo va a consultar.
 
-Un comando para aprender, uno para repasar.
+## 1. Qué documenta y para quién
+
+La documentación explica **qué hace** el proyecto, **cómo está hecho** y **cómo
+se usa o se mantiene**. En este glosario conviven tres audiencias:
+
+| Audiencia | Qué necesita | Dónde lo encuentra |
+|---|---|---|
+| Estudia o consulta los términos | Entender un concepto y repasarlo | Sitio web, fichas de `Terminos/`, `Glosario.md` |
+| Añade términos nuevos | Crear una ficha correcta sin duplicar | Comandos `/glosario` y `/repaso`, `Plantillas/termino.md` |
+| Mantiene el proyecto | Regenerar y publicar el sitio | `scripts/`, `mkdocs.yml`, `.github/workflows/` |
+
+## 2. Tipos de documentación en el proyecto
+
+| Tipo | Ejemplos en este repositorio | Para qué sirve |
+|---|---|---|
+| Externa (fuera del código) | `README.md`, `Glosario.md`, `Terminos/*.md`, sitio en `docs/` | Explicar el uso, la instalación y los términos |
+| Interna (junto a los datos) | *frontmatter* YAML de cada ficha y comentarios de los scripts | Aportar metadatos y permitir que los scripts generen índices |
+| Generada | `docs/` y `site/` (creadas por los scripts y por MkDocs) | Publicar el sitio sin editar los originales |
+
+Este proyecto es un **manual**, no una API de código: por eso **no** usa KDoc,
+Javadoc ni Doxygen. Usa los generadores adecuados para documentación escrita.
+
+## 3. Formatos y herramientas
+
+| Formato o herramienta | Qué es | Uso en este proyecto |
+|---|---|---|
+| **Markdown** | Formato de texto ligero | Todas las fichas y guías |
+| **YAML** | Formato de metadatos | *Frontmatter* de las fichas y `mkdocs.yml` |
+| **Mermaid** | Diagramas descritos con texto | Diagramas dentro de las fichas (ver apartado 4) |
+| **MkDocs Material** | Generador de sitios estáticos | Crea el sitio HTML con búsqueda y tema |
+| **Python** | Lenguaje de los scripts | Preparar `docs/`, generar índices y validar |
+| **Git / GitHub** | Control de versiones | Historial y trabajo colaborativo |
+| **GitHub Actions** | Integración continua | Compila y publica en cada `push` |
+| **GitHub Pages** | Alojamiento web | Publica el sitio generado |
+| **Obsidian** | Visor de notas Markdown | Lectura local y edición de las fichas |
+
+No se confunde el **formato** con el **generador**: Markdown es la forma de
+escribir; MkDocs transforma esos archivos en un sitio. `Pandoc` (convertir a PDF
+o DOCX) o `Docusaurus` son alternativas, pero no se usan aquí.
+
+## 4. Flujo de la documentación
+
+```mermaid
+flowchart TD
+    A[Escribir o ampliar la ficha en Markdown] --> B[Actualizar Glosario.md]
+    B --> C[prepare_docs.py: copia a docs/ y ajusta enlaces]
+    C --> D[generate_indexes.py: índices, categorías y mapa]
+    D --> E[validate_docs.py: revisa frontmatter y enlaces]
+    E -->|Errores| A
+    E -->|OK| F[mkdocs build --strict]
+    F --> G[commit y push a main]
+    G --> H[GitHub Actions]
+    H --> I[Publicar en GitHub Pages]
+```
+
+Los diagramas de las fichas se escriben en Mermaid para que se puedan revisar y
+versionar junto al texto, en lugar de depender de una imagen.
+
+## 5. Estructura del repositorio
+
+```text
+GlosarioDAW/
+├── AGENTS.md              reglas permanentes (pedagogía, organización, seguridad)
+├── README.md              este archivo: puerta de entrada
+├── Glosario.md            índice de fichas, en orden alfabético (para Obsidian)
+├── Entrada/pendientes.md  bandeja opcional para apuntar términos en clase
+├── Plantillas/termino.md  plantilla de cada ficha
+├── Terminos/              una ficha por término (una ficha, un concepto)
+├── mkdocs.yml             configuración del sitio (navegación, tema, extensiones)
+├── requirements.txt       dependencias del generador (MkDocs Material, Mermaid…)
+├── scripts/               prepare_docs.py, generate_indexes.py, validate_docs.py
+├── docs/                  copia generada para publicar (no se edita a mano)
+├── site/                  sitio HTML generado (no se versiona)
+└── .github/workflows/     flujo de integración continua y publicación
+```
+
+`docs/` y `site/` se generan y están en `.gitignore`: la fuente de verdad son las
+fichas de `Terminos/`.
+
+## 6. Requisitos
+
+- **Python 3** (probado con 3.13) y `pip`.
+- **Git**.
+- **Obsidian** (opcional) para leer y editar las fichas.
+
+## 7. Uso: crear términos y repasar
+
+Un comando para aprender, uno para repasar:
 
 ```text
 /glosario Cookie
 ```
 
-Así de simple. El asistente te explica qué es, te dibuja un diagrama y guarda la
-ficha. Puedes añadir contexto si quieres:
+El asistente explica el término, lo dibuja y guarda la ficha. Puedes añadir contexto:
 
 ```text
 /glosario Cookie — contexto: el servidor manda una cookie al iniciar sesión
 — duda: por qué hace falta si HTTP es sin estado
 ```
 
-## Estructura
+`/glosario` comprueba que el término no exista, crea o amplía
+`Terminos/<termino>.md` con las 12 secciones y **al menos un diagrama Mermaid**,
+actualiza `Glosario.md` y deja la ficha con `estado: revisado`.
 
 ```text
-Glosario/
-├── AGENTS.md              reglas permanentes (pedagogía, organización, seguridad)
-├── README.md              este archivo
-├── Glosario.md            índice de fichas, en orden alfabético
-├── Entrada/pendientes.md  bandeja opcional para apuntar en clase
-├── Plantillas/termino.md  plantilla de cada ficha
-├── Terminos/              una ficha por término (http.md es la de ejemplo)
-├── Repasos/               un archivo por fecha de repaso
-├── Recursos/Imagenes/     imágenes que aportes tú
-└── .opencode/commands/    glosario.md y repasar.md
-```
-
-## `/glosario` — aprender un término
-
-```
-/glosario <término> [- contexto: Y - duda: Z]
-```
-
-Qué hace:
-
-1. Comprueba si el término ya existe y **amplía** esa ficha en lugar de duplicarla.
-2. Si hay ambigüedad importante, **te pregunta antes** de escribir nada.
-3. Crea `Terminos/<termino>.md` con las 12 secciones de la plantilla y
-   **al menos un diagrama Mermaid**.
-4. Añade el enlace a `Glosario.md` en la lista alfabética.
-5. Deja la ficha con `estado: revisado` (no hay flujo de revisión pendiente).
-6. En el chat te lo explica por capas: qué es → cómo funciona → diagrama →
-   ejemplo mínimo → confusiones típicas → una pregunta de repaso **sin respuesta**.
-
-Ejemplos:
-
-```text
-/glosario API
-/glosario método GET
-/glosario session — contexto: en clase vimos $_SESSION
-```
-
-## `/repasar` — ponerte preguntas
-
-```
-/repasar                      → repaso global: TODOS los términos, uno a uno
+/repasar                     → repaso global de todos los términos, uno a uno
 /repaso <término>            → solo ese término
-/repaso AAAA-MM-DD            → los términos de ese día
+/repaso AAAA-MM-DD           → los términos de ese día
 ```
 
-Hace **una pregunta y espera tu respuesta**. No suelta las soluciones al empezar;
-después te dice qué acertaste, qué fallaste y qué sección releer. No toca las fichas.
+`/repasar` hace una pregunta y espera la respuesta; después indica qué acertaste,
+qué fallaste y qué sección releer. **No modifica las fichas.**
 
-Con `/repasar` a secas, te avisa de cuántos términos entran y va uno por uno. Puedes
-parar cuando quieras con `/repasar <término>`.
+`Entrada/pendientes.md` es opcional: sirve para apuntar términos en clase y
+pasarlos luego al chat.
 
-## `Entrada/pendientes.md` (opcional)
+## 8. Previsualizar y publicar
 
-Sirve para apuntar en clase un montón de términos sin parar a explicar nada.
-Copia el bloque, rellénalo y pásalo tal cual al chat:
+Instalar dependencias y previsualizar en local:
 
-```text
-/glosario Cookie — contexto: el servidor manda una cookie al
-iniciar sesión. Duda: por qué hace falta si HTTP es sin estado.
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 -m mkdocs serve        # previsualiza en http://127.0.0.1:8000
 ```
 
-Si no la usas, no pasa nada: `/glosario` funciona igual.
+Generar y validar todo antes de publicar:
 
-## En Obsidian
+```bash
+bash scripts/build_local.sh    # prepare + generate + validate + mkdocs build --strict
+```
 
-1. Abre Obsidian.
-2. **Abrir carpeta como repositorio** → selecciona la carpeta `Glosario`.
-3. En *Ajustes → Archivos y enlaces*, pon **Nuevo enlace** en «Ruta relativa al
-   archivo actual».
-4. Activa *Ajustes → Diagramas → Mermaid* para ver los diagramas.
+`mkdocs build --strict` genera el sitio en `site/` y **falla si hay avisos**: así se
+detectan enlaces rotos o fichas mal formadas antes de publicar.
 
-Los enlaces son Markdown estándar (`[HTTP](Terminos/http.md)`), no enlaces
-`[[...]]` de Obsidian, así que también funcionan fuera de Obsidian.
+Publicar: al hacer `commit` y `push` a la rama `main`, el workflow
+`.github/workflows/deploy-docs.yml` reconstruye el sitio y lo publica en GitHub
+Pages. La primera vez hay que activar el alojamiento en **Settings → Pages →
+Source: GitHub Actions**. La URL esperada es
+<https://ifonlob.github.io/GlosarioDAW/>.
 
-## Qué partes requieren tu intervención
+## 9. Buenas prácticas aplicadas
 
-- **La sección «Mis notas»** de cada ficha es tuya. No se borra ni se sobrescribe.
-- **Contestar el repaso**: el comando pregunta, tú respondes.
-- **El contexto de clase y tu duda** son tuyos: si no los escribes, la ficha se hace
-  solo con lo que hay en la documentación.
+- **Audiencia concreta:** lenguaje de principiante, un concepto por ficha.
+- **Junto al proyecto:** las fichas se versionan con Git y se revisan en cada cambio.
+- **Ejemplos verificables:** `validate_docs.py` y `mkdocs build --strict` comprueban
+  frontmatter, enlaces y construcción.
+- **Estructura y búsqueda:** navegación en `mkdocs.yml`, buscador del tema y un
+  índice alfabético generado.
+- **Proteger la información:** `.gitignore` excluye lo generado y no se guardan
+  credenciales ni datos personales.
+- **Automatizar:** GitHub Actions evita publicar a mano, aunque no sustituye la
+  revisión del contenido.
 
-## Comprobaciones y límites
+## 10. Estado de las fichas
 
-- He comprobado que los **enlaces locales** de los archivos existentes apuntan a
-  archivos que existen.
-- **No he ejecutado los comandos** (una sesión no puede lanzar OpenCode): la primera
-  vez, pruébalo con un término pequeño y mira el resultado.
-- **Los diagramas Mermaid no se validan automáticamente.** Ábrelos en Obsidian, en
-  GitHub o en <https://mermaid.live> para verlos.
-- No he instalado nada ni he tocado tu configuración global. Todo está dentro de
-  esta carpeta.
+Todas las fichas usan `estado: revisado`. No hay un flujo de revisión pendiente:
+una ficha se considera lista al crearse. Lo único reservado a la autora es la
+sección **«Mis notas»**, que nunca se borra ni se sobrescribe.
+
+## 11. Relación con el RA 6 y sus criterios
+
+| Criterio | Cómo se cubre |
+|---|---|
+| **CE 6.a** Herramientas de generación de documentación | Markdown + MkDocs Material como generador; Mermaid para diagramas; alternativas citadas (Pandoc, Docusaurus) |
+| **CE 6.b** Documentar con generadores específicos | `generate_indexes.py` crea índice, categorías y mapa conceptual; MkDocs genera el sitio |
+| **CE 6.c** Diferentes formatos | Markdown (fuente), YAML (metadatos), Mermaid (diagramas) y HTML (sitio) |
+| **CE 6.d** Herramientas colaborativas | Git y GitHub (historial, *pull requests*) con integración continua en GitHub Actions |
+
+## 12. Comprobaciones y límites
+
+- El flujo `prepare → generate → validate → mkdocs build --strict` se ha ejecutado
+  en local y termina **sin avisos** con 19 términos.
+- **Los diagramas Mermaid no se validan solos:** compruébalos visualmente en
+  Obsidian, en GitHub o en <https://mermaid.live>.
+- Publicar en GitHub Pages **requiere activarlo** una vez (Settings → Pages).
+- Los comandos `/glosario` y `/repaso` **no se han ejecutado** desde aquí: una
+  sesión no lanza OpenCode. Pruébalos con un término pequeño la primera vez.
+
+## Fuentes
+
+- [Markdown Guide](https://www.markdownguide.org/)
+- [MkDocs](https://www.mkdocs.org/) y [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
+- [Mermaid](https://mermaid.js.org/)
+- [GitHub Actions](https://docs.github.com/actions) y [GitHub Pages](https://pages.github.com/)
+- [Obsidian](https://obsidian.md/)
+- [Pandoc](https://pandoc.org/) y [Docusaurus](https://docusaurus.io/) (alternativas)

@@ -165,7 +165,7 @@ flowchart TD
 
 ## 10. Términos relacionados
 
-- [HTTP](http.md) — el protocolo que estructura esta conversación.
+- [HTTP](../Terminos/http.md) — el protocolo que estructura esta conversación.
 - [Códigos de estado HTTP](../Terminos/codigos-estado.md) — el `200 OK` de la
   respuesta y qué significan los demás.
 - [Evolución del protocolo HTTP](../Terminos/versiones-http.md) — cómo cambian los mensajes en

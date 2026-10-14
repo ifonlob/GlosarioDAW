@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [tdd, junit, pruebas, maven, spring-boot]
+bloque: tdd
 fuente: 11-tdd-minimo-para-entorno.pdf
 paginas: 3
 ---

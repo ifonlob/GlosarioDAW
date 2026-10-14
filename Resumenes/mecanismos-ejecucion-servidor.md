@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [servidor, fastcgi, php, spring-boot, concurrencia]
+bloque: servidor
 fuente: 02-mecanismos-ejecucion-servidor.pdf
 paginas: 4
 ---

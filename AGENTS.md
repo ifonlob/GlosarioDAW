@@ -92,6 +92,18 @@ Los resúmenes de `Resumenes/` siguen las mismas 12 secciones de
 `Plantillas/resumen.md`, con `titulo`, `tema`, `fuente` y `paginas` en el
 *frontmatter*, y enlaces a las fichas como `../Terminos/termino.md`.
 
+Cada resumen declara además su **bloque temático** en el *frontmatter*
+(`bloque: http | servidor | spring | tdd`). El orden de los bloques y sus nombres
+están en `scripts/generate_indexes.py` (`BLOQUES`). El script genera:
+
+- `docs/resumenes.md`, con los resúmenes agrupados por bloques;
+- el apartado **nav de `mkdocs.yml`**, con una sección por bloque, entre las marcas
+  `# >>> nav: resúmenes >>>` y `# <<< nav: resúmenes <<<`. No editar ese trozo a
+  mano: se sobrescribe.
+
+`scripts/validate_docs.py` falla si algún resumen no tiene `bloque` o si algún
+resumen de `docs/resumenes/` no aparece en el `nav` de `mkdocs.yml`.
+
 ## 5. Estado de las fichas
 
 - `estado: revisado` es el valor por defecto al crear o ampliar una ficha.

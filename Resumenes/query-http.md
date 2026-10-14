@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [http, metodos, query, rfc]
+bloque: http
 fuente: 09-query-http.pdf
 paginas: 1
 ---

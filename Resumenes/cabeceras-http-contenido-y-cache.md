@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [http, cabeceras, cache, cors, seguridad]
+bloque: http
 fuente: 08-cabeceras-http-contenido-y-cache.pdf
 paginas: 7
 ---

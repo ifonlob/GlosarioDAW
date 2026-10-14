@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [infraestructura, proxy, nginx, tomcat, despliegue]
+bloque: servidor
 fuente: 03-infraestructura-web.pdf
 paginas: 3
 ---

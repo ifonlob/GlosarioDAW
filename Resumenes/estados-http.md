@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [http, estados, api, errores, cuerpo-de-error]
+bloque: http
 fuente: 07-estados-http.pdf
 paginas: 6
 ---

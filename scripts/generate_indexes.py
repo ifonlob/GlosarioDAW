@@ -7,8 +7,13 @@ Genera índices automáticos para MkDocs:
 - docs/terminos.md (página de términos)
 - docs/categorias.md (agrupado por etiquetas/categorías)
 - docs/etiquetas.md (tags)
-- docs/resumenes.md (índice de resúmenes por temas)
+- docs/resumenes.md (índice de resúmenes agrupado por bloques de tema)
 - docs/sobre.md (sobre el proyecto)
+- mkdocs.yml (bloque nav de Resúmenes, agrupado por bloques)
+
+Bloques de tema: cada resumen declara el suyo en el frontmatter (campo `bloque`).
+El orden de los bloques es fijo y vive en BLOQUES; un resumen sin bloque o con un
+bloque desconocido se agrupa al final en "Otros".
 """
 
 import re
@@ -21,6 +26,19 @@ ROOT = Path(__file__).parent.parent
 DOCS = ROOT / "docs"
 TERM_DIR = DOCS / "terminos"
 RESUM_DIR = DOCS / "resumenes"
+MKDOCS_YML = ROOT / "mkdocs.yml"
+
+# Bloques temáticos de los resúmenes, en el orden en que aparecen en el sitio.
+BLOQUES = [
+    ("http", "HTTP y protocolo"),
+    ("servidor", "Cliente, servidor e infraestructura"),
+    ("spring", "Spring Boot y Java (DWES)"),
+    ("tdd", "TDD y pruebas"),
+]
+BLOQUE_OTROS = "Otros"
+
+NAV_INICIO = "# >>> nav: resúmenes (generado por scripts/generate_indexes.py) >>>"
+NAV_FIN = "# <<< nav: resúmenes <<<"
 
 def read_frontmatter(md_file):
     try:
@@ -72,14 +90,33 @@ def build_resumenes_index():
             'titulo': fm.get('titulo') or md.stem,
             'tema': fm.get('tema') or md.stem,
             'estado': fm.get('estado', ''),
+            'bloque': fm.get('bloque', ''),
             'fuente': fm.get('fuente', ''),
             'paginas': fm.get('paginas', ''),
             'tags': extract_tags(fm.get('etiquetas', '')),
         })
     return items
 
+def agrupar_por_bloque(resumenes):
+    """Devuelve [(nombre_bloque, [resúmenes])] en el orden de BLOQUES."""
+    claves = [b for b, _ in BLOQUES]
+    titulos = dict(BLOQUES)
+    grupos = defaultdict(list)
+    for r in resumenes:
+        b = r.get('bloque', '').strip()
+        if b not in claves:
+            b = BLOQUE_OTROS
+        grupos[b].append(r)
+    salida = [(titulos[b], sorted(grupos[b], key=lambda x: x['titulo'].lower()))
+              for b in claves if grupos.get(b)]
+    if grupos.get(BLOQUE_OTROS):
+        salida.append((BLOQUE_OTROS,
+                       sorted(grupos[BLOQUE_OTROS], key=lambda x: x['titulo'].lower())))
+    return salida
+
 def write_resumenes_md(resumenes):
     total = len(resumenes)
+    grupos = agrupar_por_bloque(resumenes)
     lines = [
         "# Resúmenes por temas",
         "",
@@ -98,21 +135,59 @@ def write_resumenes_md(resumenes):
             "",
         ]
     else:
-        lines.append(f"Total: {total} resúmenes.")
+        lines.append(f"Total: {total} resúmenes, agrupados en {len(grupos)} temas.")
         lines.append("")
-        for r in sorted(resumenes, key=lambda x: x['tema'].lower()):
-            lines.append(f"- [{r['titulo']}](resumenes/{r['file']})")
-            detalles = []
-            if r['fuente']:
-                detalles.append(f"fuente: `{r['fuente']}`")
-            if r['paginas']:
-                detalles.append(f"páginas: {r['paginas']}")
-            if r['tags']:
-                detalles.append("etiquetas: " + ", ".join(f"`{t}`" for t in r['tags']))
-            if detalles:
-                lines.append("  - " + " · ".join(detalles))
+        # índice rápido de temas
+        lines.append("## Temas")
         lines.append("")
+        for nombre, items in grupos:
+            lines.append(f"- **{nombre}** ({len(items)})")
+        lines.append("")
+        for nombre, items in grupos:
+            lines.append(f"## {nombre}")
+            lines.append("")
+            for r in items:
+                detalles = []
+                if r['fuente']:
+                    detalles.append(f"fuente: `{r['fuente']}`")
+                if r['paginas']:
+                    detalles.append(f"páginas: {r['paginas']}")
+                if r['tags']:
+                    detalles.append("etiquetas: " + ", ".join(f"`{t}`" for t in r['tags']))
+                linea = f"- [{r['titulo']}](resumenes/{r['file']})"
+                if detalles:
+                    linea += "  \n  " + " · ".join(detalles)
+                lines.append(linea)
+            lines.append("")
     (DOCS / "resumenes.md").write_text('\n'.join(lines), encoding="utf-8")
+
+def nav_titulo(texto):
+    """Cita un título para el nav: muchos llevan ':' y romperían el YAML."""
+    return '"' + str(texto).replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+def write_nav_resumenes(resumenes):
+    """
+    Escribe en mkdocs.yml el apartado de nav de Resúmenes, con una sección por
+    bloque temático. Solo toca el texto entre NAV_INICIO y NAV_FIN.
+    """
+    if not MKDOCS_YML.exists():
+        return
+    texto = MKDOCS_YML.read_text(encoding="utf-8")
+    if NAV_INICIO not in texto or NAV_FIN not in texto:
+        return
+    grupos = agrupar_por_bloque(resumenes)
+    bloque = [NAV_INICIO,
+              "  - Resúmenes:",
+              "      - Resúmenes por temas: resumenes.md"]
+    for nombre, items in grupos:
+        bloque.append(f"      - {nav_titulo(nombre)}:")
+        for r in items:
+            bloque.append(f"          - {nav_titulo(r['titulo'])}: resumenes/{r['file']}")
+    bloque.append(NAV_FIN)
+    nuevo = re.sub(re.escape(NAV_INICIO) + r".*?" + re.escape(NAV_FIN),
+                   '\n'.join(bloque), texto, flags=re.DOTALL)
+    if nuevo != texto:
+        MKDOCS_YML.write_text(nuevo, encoding="utf-8")
 
 def write_index_page(items, resumenes=None):
     DOCS.mkdir(exist_ok=True)
@@ -246,6 +321,7 @@ def main():
     items = build_index()
     resumenes = build_resumenes_index()
     write_resumenes_md(resumenes)
+    write_nav_resumenes(resumenes)
     write_index_page(items, resumenes)
     write_glosario_md(items)
     write_terminos_md(items)

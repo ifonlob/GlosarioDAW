@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [frameworks, spring, laravel, eleccion-tecnologica, integracion]
+bloque: servidor
 fuente: 04-tecnologias-e-integracion.pdf
 paginas: 4
 ---

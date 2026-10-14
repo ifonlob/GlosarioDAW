@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [http, tcp, udp, quic, multiplexacion]
+bloque: http
 fuente: 05-versiones-y-mensajes-http.pdf
 paginas: 4
 ---

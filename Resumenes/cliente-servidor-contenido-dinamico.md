@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [http, cliente-servidor, seguridad, contenido-dinamico]
+bloque: servidor
 fuente: 01-cliente-servidor-y-contenido-dinamico.pdf
 paginas: 2
 ---

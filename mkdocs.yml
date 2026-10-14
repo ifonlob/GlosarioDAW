@@ -96,8 +96,29 @@ extra:
 nav:
   - Inicio: index.md
   - Glosario: glosario.md
+  # >>> nav: resúmenes (generado por scripts/generate_indexes.py) >>>
   - Resúmenes:
       - Resúmenes por temas: resumenes.md
+      - "HTTP y protocolo":
+          - "Cabeceras HTTP, contenido, caché y negociación": resumenes/cabeceras-http-contenido-y-cache.md
+          - "Estados de respuesta HTTP: interpretar lo que devuelve una API": resumenes/estados-http.md
+          - "Método HTTP QUERY y consultas con contenido": resumenes/query-http.md
+          - "Métodos HTTP: GET, POST, PUT, PATCH, DELETE, HEAD y OPTIONS": resumenes/metodos-http.md
+          - "Versiones y estructura de los mensajes HTTP": resumenes/versiones-y-mensajes-http.md
+      - "Cliente, servidor e infraestructura":
+          - "Cliente, servidor y contenido dinámico": resumenes/cliente-servidor-contenido-dinamico.md
+          - "Cómo llega HTTP al código servidor": resumenes/mecanismos-ejecucion-servidor.md
+          - "Elegir tecnologías e integrar respuestas": resumenes/tecnologias-e-integracion.md
+          - "Servidores web, proxies y contenedores": resumenes/infraestructura-web.md
+      - "Spring Boot y Java (DWES)":
+          - "Capa de servicio": resumenes/capa-servicios.md
+          - "Introducción a Spring Boot": resumenes/introduccion-spring-boot.md
+          - "Spring Boot y controladores REST": resumenes/controladores-rest.md
+      - "TDD y pruebas":
+          - "TDD mínimo para el cuestionario de entorno": resumenes/tdd-minimo.md
+          - "TDD y MockMvc en la mini API Tasks": resumenes/tdd-primeros-pasos.md
+          - "Tests de errores y respuestas HTTP coherentes": resumenes/tdd-manejo-errores.md
+# <<< nav: resúmenes <<<
   - Términos: terminos.md
   - Categorías: categorias.md
   - Etiquetas: etiquetas.md

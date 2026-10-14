@@ -5,6 +5,7 @@ fecha_creacion: 2026-10-14
 fecha_actualizacion: 2026-10-14
 estado: revisado
 etiquetas: [http, metodos, api, idempotencia, semantica]
+bloque: http
 fuente: 06-metodos-http.pdf
 paginas: 2
 ---

@@ -5,6 +5,7 @@ fecha_creacion: AAAA-MM-DD
 fecha_actualizacion: AAAA-MM-DD
 estado: revisado
 etiquetas: [tag1, tag2]
+bloque: spring
 fuente: nombre-del-archivo.pdf
 paginas: 12
 ---

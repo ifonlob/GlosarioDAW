@@ -37,6 +37,11 @@ Un archivo por PDF de `Entrada/PDF/`. Todos son resúmenes de material de clase.
 - [Infraestructura web](Resumenes/infraestructura-web.md) — servidor web, proxy inverso, balanceador y contenedores.
 - [Tecnologías e integración](Resumenes/tecnologias-e-integracion.md) — cómo elegir framework y cómo integrar respuestas.
 - [TDD mínimo](Resumenes/tdd-minimo.md) — red, green, refactor, fixtures y JUnit.
+- [Introducción a Spring Boot](Resumenes/introduccion-spring-boot.md) — starters, autoconfiguración, perfiles y la API Tasks completa.
+- [Controladores REST](Resumenes/controladores-rest.md) — `@RestController`, anotaciones de parámetros, `ResponseEntity` y códigos HTTP.
+- [Capa de servicio](Resumenes/capa-servicios.md) — dónde vive la lógica de negocio y cómo se traducen sus errores.
+- [TDD y MockMvc en la mini API Tasks](Resumenes/tdd-primeros-pasos.md) — probar la capa web con MockMvc y tests de integración.
+- [Tests de errores y respuestas coherentes](Resumenes/tdd-manejo-errores.md) — `@ControllerAdvice` y el payload `{ error, message, timestamp }`.
 
 ## Para crear una ficha nueva
 

@@ -92,10 +92,47 @@ def validate_originals_preserved():
         if not (ROOT / c).exists():
             ERRORS.append(f"Archivo original faltante: {c}")
 
+def validate_nav():
+    """
+    Comprueba que todos los resúmenes de docs/resumenes/ están en el nav de
+    mkdocs.yml. MkDocs avisa en el build, pero aquí el error es más claro.
+    Los términos no se comprueban uno a uno: se listan en las páginas de índice
+    (glosario.md, terminos.md, categorias.md), que sí están en el nav.
+    """
+    yml = ROOT / "mkdocs.yml"
+    if not yml.exists():
+        ERRORS.append("Falta mkdocs.yml.")
+        return
+    texto = yml.read_text(encoding="utf-8")
+    m = re.search(r'^nav:\s*\n(.*)$', texto, re.DOTALL | re.MULTILINE)
+    if not m:
+        ERRORS.append("mkdocs.yml no tiene la clave nav.")
+        return
+    nav = m.group(1)
+    if not RESUM_DIR.exists():
+        return
+    for md in sorted(RESUM_DIR.glob("*.md")):
+        ruta = f"resumenes/{md.name}"
+        if ruta not in nav:
+            ERRORS.append(f"{md.name} no aparece en el nav de mkdocs.yml ({ruta}).")
+
+def validate_resumen_bloques():
+    """Cada resumen debe declarar su bloque temático (campo `bloque`)."""
+    if not RESUM_DIR.exists():
+        return
+    for md in sorted(RESUM_DIR.glob("*.md")):
+        text = md.read_text(encoding="utf-8")
+        m = re.match(r'^---\s*\n(.*?)\n---\s*\n', text, re.DOTALL | re.MULTILINE)
+        fm = m.group(1) if m else ''
+        if not re.search(r'^bloque\b', fm, re.MULTILINE):
+            ERRORS.append(f"{md} falta el campo 'bloque' (tema del resumen).")
+
 def main():
     validate_terms()
     validate_resumenes()
+    validate_resumen_bloques()
     validate_links()
+    validate_nav()
     validate_originals_preserved()
     if ERRORS:
         print("ERRORES ENCONTRADOS:")

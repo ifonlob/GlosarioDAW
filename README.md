@@ -78,8 +78,11 @@ GlosarioDAW/
 ├── README.md              este archivo: puerta de entrada
 ├── Glosario.md            índice de fichas, en orden alfabético (para Obsidian)
 ├── Entrada/pendientes.md  bandeja opcional para apuntar términos en clase
+├── Entrada/PDF/           PDF de clase para resumir (no se publica)
 ├── Plantillas/termino.md  plantilla de cada ficha
+├── Plantillas/resumen.md  plantilla de cada resumen por temas
 ├── Terminos/              una ficha por término (una ficha, un concepto)
+├── Resumenes/             un resumen por tema de clase, a partir de un PDF
 ├── mkdocs.yml             configuración del sitio (navegación, tema, extensiones)
 ├── requirements.txt       dependencias del generador (MkDocs Material, Mermaid…)
 ├── scripts/               prepare_docs.py, generate_indexes.py, validate_docs.py
@@ -97,7 +100,7 @@ fichas de `Terminos/`.
 - **Git**.
 - **Obsidian** (opcional) para leer y editar las fichas.
 
-## 7. Uso: crear términos y repasar
+## 7. Uso: crear términos, resumir PDF y repasar
 
 Un comando para aprender, uno para repasar:
 
@@ -115,6 +118,22 @@ El asistente explica el término, lo dibuja y guarda la ficha. Puedes añadir co
 `/glosario` comprueba que el término no exista, crea o amplía
 `Terminos/<termino>.md` con las 12 secciones y **al menos un diagrama Mermaid**,
 actualiza `Glosario.md` y deja la ficha con `estado: revisado`.
+
+Para resumir material de clase, **adjunta el PDF al chat** y escribe:
+
+```text
+/resumir                    → usa el PDF adjunto
+/resumir — tema: Servicios en Angular
+/resumir Entrada/PDF/angular-servicios.pdf
+```
+
+`/resumir` copia el PDF a `Entrada/PDF/` con nombre corto, lo lee (si es ilegible o
+está escaneado, lo dice y para) y crea `Resumenes/<tema>.md` con las mismas 12
+secciones de `Plantillas/resumen.md`: resumen en cinco líneas, explicación por
+capas, **al menos un diagrama Mermaid**, ejemplo mínimo, confusiones típicas y tres
+preguntas de repaso. En la sección 11 indica el PDF de origen, las páginas leídas y
+qué partes no se han podido leer. Los PDF no se publican en el sitio; los resúmenes
+sí, en el apartado **Resúmenes**.
 
 ```text
 /repasar                     → repaso global de todos los términos, uno a uno
@@ -178,11 +197,12 @@ sección **«Mis notas»**, que nunca se borra ni se sobrescribe.
 ## 11. Comprobaciones y límites
 
 - El flujo `prepare → generate → validate → mkdocs build --strict` se ha ejecutado
-  en local y termina **sin avisos** con 19 términos.
+  en local y termina **sin avisos** con 19 términos. Con `Resumenes/` vacío,
+  `resumenes.md` muestra el estado inicial sin resúmenes.
 - **Los diagramas Mermaid no se validan solos:** compruébalos visualmente en
   Obsidian, en GitHub o en <https://mermaid.live>.
 - Publicar en GitHub Pages **requiere activarlo** una vez (Settings → Pages).
-- Los comandos `/glosario` y `/repaso` **no se han ejecutado** desde aquí: una
+- Los comandos `/glosario`, `/resumir` y `/repaso` **no se han ejecutado** desde aquí: una
   sesión no lanza OpenCode. Pruébalos con un término pequeño la primera vez.
 
 ## Fuentes

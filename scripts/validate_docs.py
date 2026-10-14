@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 DOCS = ROOT / "docs"
 TERM_DIR = DOCS / "terminos"
+RESUM_DIR = DOCS / "resumenes"
 ERRORS = []
 WARNINGS = []
 
@@ -42,6 +43,28 @@ def validate_terms():
         if '```mermaid' not in text and 'mermaid' not in text.lower():
             WARNINGS.append(f"{md} podría no tener diagrama Mermaid explícito.")
 
+def validate_resumenes():
+    if not RESUM_DIR.exists():
+        return
+    for md in RESUM_DIR.glob("*.md"):
+        try:
+            text = md.read_text(encoding="utf-8")
+        except Exception as e:
+            ERRORS.append(f"No se puede leer {md}: {e}")
+            continue
+        m = re.match(r'^---\s*\n(.*?)\n---\s*\n', text, re.DOTALL | re.MULTILINE)
+        if not m:
+            ERRORS.append(f"{md} no tiene frontmatter YAML.")
+            continue
+        fm = m.group(1)
+        required = ['titulo', 'tema', 'fecha_creacion', 'fecha_actualizacion',
+                    'estado', 'etiquetas', 'fuente']
+        for r in required:
+            if not re.search(rf'^{r}\b', fm, re.MULTILINE):
+                WARNINGS.append(f"{md} falta campo recomendado: {r}")
+        if '```mermaid' not in text:
+            WARNINGS.append(f"{md} no tiene diagrama Mermaid explícito.")
+
 def validate_links():
     # enlaces internos a terminos/recursos dentro de docs
     link_re = re.compile(r'\]\(([^)]+)\)')
@@ -71,6 +94,7 @@ def validate_originals_preserved():
 
 def main():
     validate_terms()
+    validate_resumenes()
     validate_links()
     validate_originals_preserved()
     if ERRORS:

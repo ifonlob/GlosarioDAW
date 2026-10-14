@@ -23,6 +23,21 @@ relativos, así que funcionan en Obsidian y en cualquier otro editor.
 - [Signals en Angular](Terminos/signals-angular.md) — estado que avisa a la pantalla cuando cambia.
 - [Sniffing](Terminos/sniffing.md) — leer el tráfico de red o generar la documentación de una API.
 
+## Resúmenes de clase
+
+Un archivo por PDF de `Entrada/PDF/`. Todos son resúmenes de material de clase.
+
+- [Cliente, servidor y contenido dinámico](Resumenes/cliente-servidor-contenido-dinamico.md) — quién hace qué y por qué validar en el navegador no protege nada.
+- [Versiones y estructura de los mensajes HTTP](Resumenes/versiones-y-mensajes-http.md) — petición, respuesta y qué cambia entre HTTP/1.1, 2 y 3.
+- [Métodos HTTP](Resumenes/metodos-http.md) — GET, POST, PUT, PATCH, DELETE, HEAD y OPTIONS, con seguridad e idempotencia.
+- [Estados de respuesta HTTP](Resumenes/estados-http.md) — elegir el código correcto y saber qué poner en el cuerpo de error.
+- [Cabeceras HTTP, contenido, caché y negociación](Resumenes/cabeceras-http-contenido-y-cache.md) — `Accept` frente a `Content-Type`, caché, cookies y CORS.
+- [Método HTTP QUERY](Resumenes/query-http.md) — consultas con contenido en lugar de parámetros en la URL.
+- [Mecanismos de ejecución del servidor](Resumenes/mecanismos-ejecucion-servidor.md) — CGI, FastCGI, PHP-FPM y proceso persistente.
+- [Infraestructura web](Resumenes/infraestructura-web.md) — servidor web, proxy inverso, balanceador y contenedores.
+- [Tecnologías e integración](Resumenes/tecnologias-e-integracion.md) — cómo elegir framework y cómo integrar respuestas.
+- [TDD mínimo](Resumenes/tdd-minimo.md) — red, green, refactor, fixtures y JUnit.
+
 ## Para crear una ficha nueva
 
 Escribe en el chat:
@@ -33,6 +48,19 @@ Escribe en el chat:
 
 El comando comprueba el índice, crea o amplía `Terminos/<termino>.md`, actualiza
 esta lista y te explica el término en el chat con un diagrama.
+
+## Para resumir un PDF de clase
+
+Adjunta el PDF al chat y escribe:
+
+```text
+/resumir                    → usa el PDF adjunto
+/resumir — tema: Nombre del tema
+```
+
+El PDF se copia a [Entrada/PDF/](Entrada/PDF/leeme.md), y el comando crea
+`Resumenes/<tema>.md` con las 12 secciones, un diagrama Mermaid y tres preguntas de
+repaso. Los resúmenes se publican en el apartado **Resúmenes** del sitio.
 
 ## Para repasar
 

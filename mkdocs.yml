@@ -96,6 +96,8 @@ extra:
 nav:
   - Inicio: index.md
   - Glosario: glosario.md
+  - Resúmenes:
+      - Resúmenes por temas: resumenes.md
   - Términos: terminos.md
   - Categorías: categorias.md
   - Etiquetas: etiquetas.md

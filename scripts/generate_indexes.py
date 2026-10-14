@@ -7,6 +7,7 @@ Genera índices automáticos para MkDocs:
 - docs/terminos.md (página de términos)
 - docs/categorias.md (agrupado por etiquetas/categorías)
 - docs/etiquetas.md (tags)
+- docs/resumenes.md (índice de resúmenes por temas)
 - docs/sobre.md (sobre el proyecto)
 """
 
@@ -19,6 +20,7 @@ from datetime import datetime
 ROOT = Path(__file__).parent.parent
 DOCS = ROOT / "docs"
 TERM_DIR = DOCS / "terminos"
+RESUM_DIR = DOCS / "resumenes"
 
 def read_frontmatter(md_file):
     try:
@@ -55,9 +57,67 @@ def build_index():
         })
     return items
 
-def write_index_page(items):
+def build_resumenes_index():
+    """Lee los resúmenes de docs/resumenes/ y devuelve sus datos."""
+    items = []
+    if not RESUM_DIR.exists():
+        return items
+    for md in sorted(RESUM_DIR.glob("*.md")):
+        try:
+            fm, text = read_frontmatter(md)
+        except Exception:
+            fm = {}
+        items.append({
+            'file': md.name,
+            'titulo': fm.get('titulo') or md.stem,
+            'tema': fm.get('tema') or md.stem,
+            'estado': fm.get('estado', ''),
+            'fuente': fm.get('fuente', ''),
+            'paginas': fm.get('paginas', ''),
+            'tags': extract_tags(fm.get('etiquetas', '')),
+        })
+    return items
+
+def write_resumenes_md(resumenes):
+    total = len(resumenes)
+    lines = [
+        "# Resúmenes por temas",
+        "",
+        "Resúmenes de material de clase (PDF) explicados con el mismo método que "
+        "las fichas: capas, ejemplo mínimo, diagrama y preguntas de repaso.",
+        "",
+    ]
+    if total == 0:
+        lines += [
+            "Todavía no hay resúmenes.", "",
+            "Para crear uno, deja el PDF en `Entrada/PDF/` y escribe en el chat:",
+            "",
+            "```text",
+            "/resumir Entrada/PDF/mi-tema.pdf — tema: Nombre del tema",
+            "```",
+            "",
+        ]
+    else:
+        lines.append(f"Total: {total} resúmenes.")
+        lines.append("")
+        for r in sorted(resumenes, key=lambda x: x['tema'].lower()):
+            lines.append(f"- [{r['titulo']}](resumenes/{r['file']})")
+            detalles = []
+            if r['fuente']:
+                detalles.append(f"fuente: `{r['fuente']}`")
+            if r['paginas']:
+                detalles.append(f"páginas: {r['paginas']}")
+            if r['tags']:
+                detalles.append("etiquetas: " + ", ".join(f"`{t}`" for t in r['tags']))
+            if detalles:
+                lines.append("  - " + " · ".join(detalles))
+        lines.append("")
+    (DOCS / "resumenes.md").write_text('\n'.join(lines), encoding="utf-8")
+
+def write_index_page(items, resumenes=None):
     DOCS.mkdir(exist_ok=True)
     total = len(items)
+    total_resumenes = len(resumenes) if resumenes else 0
     etiquetas = set()
     for i in items:
         etiquetas.update(i['tags'])
@@ -70,6 +130,7 @@ def write_index_page(items):
 ## Estadísticas reales
 
 - **Términos totales:** {total}
+- **Resúmenes por temas:** {total_resumenes}
 - **Etiquetas distintas:** {len(etiquetas)}
 - **Actualización del índice:** {hoy}
 
@@ -86,6 +147,7 @@ Un glosario pedagógico creado para aprender paso a paso. Cada ficha explica un 
 ## Acceso rápido
 
 - [Ver glosario completo](glosario.md)
+- [Leer resúmenes por temas](resumenes.md)
 - [Explorar por categorías](categorias.md)
 - [Explorar por etiquetas](etiquetas.md)
 """
@@ -143,8 +205,9 @@ def write_etiquetas_md(items):
         lines.append(f"- `{t}`")
     (DOCS / "etiquetas.md").write_text('\n'.join(lines), encoding="utf-8")
 
-def write_sobre(items):
+def write_sobre(items, resumenes=None):
     total = len(items)
+    total_resumenes = len(resumenes) if resumenes else 0
     content = f"""# Sobre el glosario
 
 ## Objetivo
@@ -162,6 +225,7 @@ Glosario personal de Desarrollo de Aplicaciones Web (DAW), orientado a aprendiza
 ## Datos actuales
 
 - Términos registrados: {total}
+- Resúmenes por temas: {total_resumenes}
 
 ## Tecnología
 
@@ -180,13 +244,15 @@ Glosario personal de Desarrollo de Aplicaciones Web (DAW), orientado a aprendiza
 
 def main():
     items = build_index()
-    write_index_page(items)
+    resumenes = build_resumenes_index()
+    write_resumenes_md(resumenes)
+    write_index_page(items, resumenes)
     write_glosario_md(items)
     write_terminos_md(items)
     write_categorias_md(items)
     write_etiquetas_md(items)
-    write_sobre(items)
-    print(f"Índices generados: {len(items)} términos procesados.")
+    write_sobre(items, resumenes)
+    print(f"Índices generados: {len(items)} términos y {len(resumenes)} resúmenes procesados.")
 
 if __name__ == "__main__":
     main()

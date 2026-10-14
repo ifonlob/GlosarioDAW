@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 DOCS = ROOT / "docs"
 TERM_DIR_ORIG = ROOT / "Terminos"
+RESUMENES_ORIG = ROOT / "Resumenes"
 RECURSOS_ORIG = ROOT / "Recursos"
 PLANTILLAS_ORIG = ROOT / "Plantillas"
 GLOSARIO_ORIG = ROOT / "Glosario.md"
@@ -36,6 +37,14 @@ def copy_terms():
     for md in sorted(TERM_DIR_ORIG.glob("*.md")):
         shutil.copy2(md, dest / md.name)
 
+def copy_resumenes():
+    """Copia resúmenes de temas a docs/resumenes/"""
+    if RESUMENES_ORIG.exists():
+        dest = DOCS / "resumenes"
+        dest.mkdir(exist_ok=True)
+        for md in sorted(RESUMENES_ORIG.glob("*.md")):
+            shutil.copy2(md, dest / md.name)
+
 def copy_resources():
     """Copia recursos a docs/recursos/"""
     if RECURSOS_ORIG.exists():
@@ -44,10 +53,11 @@ def copy_resources():
 
 def copy_misc():
     """Copia archivos de apoyo si es necesario"""
-    # Entrada opcional
+    # Entrada opcional (solo texto; los PDF de clase no se publican)
     if ENTRADA_ORIG.exists():
         dest = DOCS / "entrada"
-        shutil.copytree(ENTRADA_ORIG, dest, dirs_exist_ok=True)
+        shutil.copytree(ENTRADA_ORIG, dest, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns("*.pdf"))
 
 def fix_links_in_file(filepath):
     """
@@ -65,18 +75,23 @@ def fix_links_in_file(filepath):
     text = re.sub(r'\]\(\.\./Glosario\.md([^)#]*)', r'](../glosario.md\1', text)
     text = re.sub(r'\]\(Glosario\.md([^)#]*)', r'](glosario.md\1', text)
 
-    # Enlaces a Terminos/
-    # [texto](Terminos/archivo.md) o [texto](../Terminos/archivo.md)
-    text = re.sub(r'\]\(Terminos/([^)#]+)', r'](terminos/\1', text)
-    text = re.sub(r'\]\(\.\./Terminos/([^)#]+)', r'](terminos/\1', text)
+    # Enlaces a Terminos/, con la ruta relativa correcta según la profundidad
+    # del archivo dentro de docs/ (p. ej. desde docs/resumenes/ es ../terminos/)
+    prefix = "../" * (len(filepath.relative_to(DOCS).parts) - 1)
+    text = re.sub(r'\]\(\.\./Terminos/([^)#]+)', rf']({prefix}terminos/\1', text)
+    text = re.sub(r'\]\(Terminos/([^)#]+)', rf']({prefix}terminos/\1', text)
 
     # Imágenes y enlaces a Recursos
     text = re.sub(r'\]\(Recursos/([^)#]+)', r'](recursos/\1', text)
     text = re.sub(r'\]\(\.\./Recursos/([^)#]+)', r'](../recursos/\1', text)
 
+    # Resúmenes de temas (relativo al archivo: desde docs/resumenes/ es x.md)
+    text = re.sub(r'\]\(\.\./Resumenes/([^)#]+)', rf']({prefix}\1', text)
+    text = re.sub(r'\]\(Resumenes/([^)#]+)', rf']({prefix}resumenes/\1', text)
+
     # Entrada
-    text = re.sub(r'\]\(Entrada/([^)#]+)', r'](entrada/\1', text)
-    text = re.sub(r'\]\(\.\./Entrada/([^)#]+)', r'](../entrada/\1', text)
+    text = re.sub(r'\]\(\.\./Entrada/([^)#]+)', rf']({prefix}entrada/\1', text)
+    text = re.sub(r'\]\(Entrada/([^)#]+)', rf']({prefix}entrada/\1', text)
 
     filepath.write_text(text, encoding="utf-8")
 
@@ -88,6 +103,7 @@ def fix_all_links():
 def main():
     clean_docs()
     copy_terms()
+    copy_resumenes()
     copy_resources()
     copy_misc()
     # Generará índices después - pero también copiar Glosario base si queremos? Lo generamos nosotros

@@ -43,12 +43,16 @@ deben respetar estas reglas.
 - El **título de la ficha conserva el nombre correcto del término** con su ortografía
   oficial: «Pedido», «REST», «HTTP», aunque el archivo se llame `pedido.md`.
 - Estructura fija:
-  - `Entrada/pendientes.md` — bandeja de entrada **opcional** (lo que se apunta en
-    clase y se pasa luego a `/glosario`; no es obligatoria).
-  - `Terminos/` — una ficha por término.
+- `Entrada/pendientes.md` — bandeja de entrada **opcional** (lo que se apunta en
+  clase y se pasa luego a `/glosario`; no es obligatoria).
+- `Entrada/PDF/` — PDF de clase que aporta la estudiante para resumir con
+  `/resumir`. Los PDF **no se publican** en el sitio.
+- `Terminos/` — una ficha por término.
+- `Resumenes/` — un resumen por tema de clase, a partir de un PDF.
   - `Repasos/` — un archivo por fecha de repaso.
   - `Recursos/Imagenes/` — imágenes locales aportadas por la estudiante.
   - `Plantillas/termino.md` — plantilla de ficha.
+  - `Plantillas/resumen.md` — plantilla de resumen por temas (mismas 12 secciones).
   - `Glosario.md` — índice de fichas, en orden alfabético.
 - **Enlaces Markdown relativos**: `[HTTP](Terminos/http.md)`, no enlaces `[[...]]` de Obsidian.
   Los apuntes deben abrirse igual en cualquier editor.
@@ -84,6 +88,10 @@ Secciones obligatorias, en este orden:
 11. Fuentes y límites de la explicación
 12. Mis notas (reservada para la estudiante; nunca se borra ni se sobrescribe)
 
+Los resúmenes de `Resumenes/` siguen las mismas 12 secciones de
+`Plantillas/resumen.md`, con `titulo`, `tema`, `fuente` y `paginas` en el
+*frontmatter*, y enlaces a las fichas como `../Terminos/termino.md`.
+
 ## 5. Estado de las fichas
 
 - `estado: revisado` es el valor por defecto al crear o ampliar una ficha.
@@ -97,6 +105,19 @@ Secciones obligatorias, en este orden:
 - Un término que se usa con significados distintos en contextos distintos: preferible
   **una sola ficha** con una sección por contexto, o dos fichas con nombres distintos
   (`peticion-http.md` y `peticion-local.md`) y un enlace cruzada.
+
+## 6bis. Resúmenes por temas
+
+- Un PDF de clase → **un** archivo en `Resumenes/`, con el mismo método que las
+  fichas: capas, ejemplo mínimo, **al menos un diagrama Mermaid**, tres preguntas de
+  repaso y «Mis notas».
+- El PDF vive en `Entrada/PDF/` y **no se publica** en el sitio.
+- En la sección 11 se indica el PDF de origen, las páginas leídas y **qué partes no
+  se han podido leer**. Si el PDF es ilegible o escaneado, se dice y no se inventa.
+- Lo que dice el PDF es **material de clase**; lo que explica la asistente va
+  redactado como explicación propia.
+- Los términos del PDF se enlazan a `Terminos/` **solo si ya existen**; si no, se
+  crean con `/glosario` o se dejan en texto plano.
 
 ## 7. Mis anotaciones personales
 

@@ -1,7 +1,7 @@
 ---
 termino: Bean (Spring Boot)
 fecha_creacion: 2026-10-13
-fecha_actualizacion: 2026-10-13
+fecha_actualizacion: 2026-10-17
 estado: revisado
 etiquetas: [spring, spring-boot, java, ioc, inyeccion-dependencias]
 ---
@@ -120,6 +120,9 @@ flowchart TD
   es el que **crea y guarda** los beans; el bean es solo el objeto.
 - **Bean ≠ dependencia**: la dependencia es lo que el bean necesita; el bean es el
   que la recibe ya montada.
+- **Bean ≠ DIP**: el bean es el objeto gestionado; el DIP es el criterio para
+  decidir *de qué tipo* pedir las dependencias (interfaces, no clases concretas).
+  Se explica en [DIP](dip.md).
 
 ## 8. Errores frecuentes
 
@@ -161,6 +164,8 @@ flowchart TD
 
 - [ORM](orm.md) — los repositorios que suelen ser beans usan esa capa para hablar
   con la base de datos.
+- [DIP (Dependency Inversion Principle)](dip.md) — por qué los beans piden
+  interfaces y no clases concretas.
 - [CI/CD](ci-cd.md) — la aplicación se empaqueta y se despliega con la
   configuración de beans ya resuelta.
 - [Glosario](../Glosario.md) — índice general.

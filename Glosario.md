@@ -8,6 +8,7 @@ relativos, así que funcionan en Obsidian y en cualquier otro editor.
 - [Bean (Spring Boot)](Terminos/beans-spring.md) — objeto Java que Spring crea y gestiona por ti.
 - [CI/CD](Terminos/ci-cd.md) — comprobar y publicar el código automáticamente en cada cambio.
 - [Códigos de estado HTTP](Terminos/codigos-estado.md) — número de tres cifras que resume la respuesta del servidor.
+- [DIP (Dependency Inversion Principle)](Terminos/dip.md) — la regla de SOLID que hace que la lógica de negocio dependa de interfaces y no de la base de datos.
 - [Directivas de Angular (resumen)](Terminos/directivas-angular.md) — qué son y cuáles se usan a diario, con los bloques `@if`, `@for` y `@switch`.
 - [DTO (Data Transfer Object)](Terminos/dtos.md) — clase simple que solo transporta datos.
 - [Evolución del protocolo HTTP](Terminos/versiones-http.md) — qué cambió entre HTTP/0.9, 1.0, 1.1, 2 y 3.

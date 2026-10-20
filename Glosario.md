@@ -18,6 +18,7 @@ relativos, así que funcionan en Obsidian y en cualquier otro editor.
 - [Merge](Terminos/merge.md) — juntar dos ramas conservando el historial.
 - [Merge vs Rebase](Terminos/merge-vs-rebase.md) — las dos formas de juntar ramas y en qué se diferencian.
 - [ORM](Terminos/orm.md) — capa que traduce entre objetos y tablas de la base de datos.
+- [Package.json vs package-lock.json](Terminos/package-json-vs-package-lock.md) — lo que pides frente a lo que se instaló exactamente.
 - [Pipes en Angular](Terminos/pipes-angular.md) — transformar y formatear valores con el operador `|`.
 - [Rebase](Terminos/rebase.md) — reaplicar tus commits sobre otra rama; reescribe la historia.
 - [Refactorización](Terminos/refactorizacion.md) — mejorar la estructura interna sin cambiar lo que hace.

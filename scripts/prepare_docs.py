@@ -85,8 +85,8 @@ def fix_links_in_file(filepath):
     text = re.sub(r'\]\(Recursos/([^)#]+)', r'](recursos/\1', text)
     text = re.sub(r'\]\(\.\./Recursos/([^)#]+)', r'](../recursos/\1', text)
 
-    # Resúmenes de temas (relativo al archivo: desde docs/resumenes/ es x.md)
-    text = re.sub(r'\]\(\.\./Resumenes/([^)#]+)', rf']({prefix}\1', text)
+    # Resúmenes de temas (siempre viven en docs/resumenes/)
+    text = re.sub(r'\]\(\.\./Resumenes/([^)#]+)', rf']({prefix}resumenes/\1', text)
     text = re.sub(r'\]\(Resumenes/([^)#]+)', rf']({prefix}resumenes/\1', text)
 
     # Entrada

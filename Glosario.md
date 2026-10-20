@@ -4,6 +4,7 @@
 relativos, así que funcionan en Obsidian y en cualquier otro editor.
 
 - [Angular standalone vs Ng Module](Terminos/angular-standalone-vs-ngmodule.md) — las dos formas de organizar el código de Angular.
+- [Anotaciones de Spring Boot para una API REST](Terminos/anotaciones-api-rest-spring.md) — las etiquetas `@` que conectan URLs, datos y respuestas JSON.
 - [Backlog](Terminos/backlog.md) — lista ordenada de todo lo que falta por hacer en un proyecto.
 - [Bean (Spring Boot)](Terminos/beans-spring.md) — objeto Java que Spring crea y gestiona por ti.
 - [CI/CD](Terminos/ci-cd.md) — comprobar y publicar el código automáticamente en cada cambio.

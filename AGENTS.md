@@ -170,3 +170,21 @@ resumen de `docs/resumenes/` no aparece en el `nav` de `mkdocs.yml`.
 
 - Si no hay forma de validar Mermaid automáticamente, decirlo: los diagramas
   **necesitan comprobación visual** (en Obsidian, GitHub, mermaid.live…).
+
+## 11. Commits automáticos al crear fichas
+
+- Cuando `/glosario` **cree un archivo nuevo** en `Terminos/` (no cuando amplíe
+  una ficha existente), además de actualizar `Glosario.md`:
+  1. Revisar `git status` y `git diff` antes de preparar nada.
+  2. Preparar **solo** la ficha nueva y la línea añadida en `Glosario.md`. No
+     incluir cambios ajenos de la estudiante.
+  3. Hacer un commit con **Conventional Commits**:
+     `docs(glosario): añadir ficha <nombre-corto>`.
+     Ejemplo: `docs(glosario): añadir ficha anotaciones-api-rest-spring`.
+  4. Hacer `git push origin main` inmediatamente, **sin pedir confirmación**.
+- No usar `git add .` ni `git commit -a`: siempre preparar archivos concretos.
+- Si falla el commit o el push (red, permisos, conflictos), **no forzar** ni
+  reescribir el historial. Avisar del error y decir si el commit quedó solo en
+  local.
+- Esta regla **no** se aplica al ampliar una ficha existente, a los resúmenes ni
+  a otros archivos: esos cambios no se publican solos salvo que se pida.

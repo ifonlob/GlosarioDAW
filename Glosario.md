@@ -15,6 +15,7 @@ relativos, así que funcionan en Obsidian y en cualquier otro editor.
 - [DTO (Data Transfer Object)](Terminos/dtos.md) — clase simple que solo transporta datos.
 - [Evolución del protocolo HTTP](Terminos/versiones-http.md) — qué cambió entre HTTP/0.9, 1.0, 1.1, 2 y 3.
 - [Flyway Spring Boot](Terminos/flyway-spring-boot.md) — aplicar cambios versionados a la base de datos al arrancar.
+- [GenerationType: estrategias de generación de IDs](Terminos/generationtype-estrategias-ids.md) — IDENTITY, SEQUENCE, TABLE y AUTO: quién genera el id y qué cambia.
 - [GlobalExceptionHandler en Spring Boot](Terminos/globalexceptionhandler.md) — clase que recoge los errores de todos los controladores y responde JSON.
 - [HTTP](Terminos/http.md) — ficha de demostración, marcada como ejemplo.
 - [@Input y @Output con EventEmitter en Angular](Terminos/input-output-eventemitter-angular.md) — cómo un hijo recibe datos del padre y le avisa.

@@ -10,6 +10,7 @@ relativos, así que funcionan en Obsidian y en cualquier otro editor.
 - [CI/CD](Terminos/ci-cd.md) — comprobar y publicar el código automáticamente en cada cambio.
 - [Códigos de estado HTTP](Terminos/codigos-estado.md) — número de tres cifras que resume la respuesta del servidor.
 - [CSRF](Terminos/csrf.md) — ataque que usa tu sesión abierta para enviar peticiones que tú no pediste.
+- [DAO (Data Access Object)](Terminos/dao.md) — clase que guarda y recupera datos; el resto de la app no escribe SQL.
 - [DIP (Dependency Inversion Principle)](Terminos/dip.md) — la regla de SOLID que hace que la lógica de negocio dependa de interfaces y no de la base de datos.
 - [Directivas de Angular (resumen)](Terminos/directivas-angular.md) — qué son y cuáles se usan a diario, con los bloques `@if`, `@for` y `@switch`.
 - [DTO (Data Transfer Object)](Terminos/dtos.md) — clase simple que solo transporta datos.

@@ -14,6 +14,7 @@ relativos, así que funcionan en Obsidian y en cualquier otro editor.
 - [DIP (Dependency Inversion Principle)](Terminos/dip.md) — la regla de SOLID que hace que la lógica de negocio dependa de interfaces y no de la base de datos.
 - [Directivas de Angular (resumen)](Terminos/directivas-angular.md) — qué son y cuáles se usan a diario, con los bloques `@if`, `@for` y `@switch`.
 - [DTO (Data Transfer Object)](Terminos/dtos.md) — clase simple que solo transporta datos.
+- [EntityManager](Terminos/entity-manager.md) — el objeto de JPA que gestiona entidades y pide a Hibernate el SQL.
 - [Evolución del protocolo HTTP](Terminos/versiones-http.md) — qué cambió entre HTTP/0.9, 1.0, 1.1, 2 y 3.
 - [Flyway Spring Boot](Terminos/flyway-spring-boot.md) — aplicar cambios versionados a la base de datos al arrancar.
 - [GenerationType: estrategias de generación de IDs](Terminos/generationtype-estrategias-ids.md) — IDENTITY, SEQUENCE, TABLE y AUTO: quién genera el id y qué cambia.
